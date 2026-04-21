@@ -4,24 +4,24 @@ import 'package:edufin/feat/styles/strings.dart';
 import 'package:edufin/feat/styles/text_style.dart';
 import 'package:flutter/material.dart';
 
-class TeacherDescription extends StatelessWidget {
-  const TeacherDescription({super.key});
+class StudentDescription extends StatelessWidget {
+  const StudentDescription({super.key});
 
   @override
   Widget build(BuildContext context) {
     List<String> buttonText = [
-      Strings.teacher,
-      Strings.studentDetails,
-      Strings.studentAdd,
-      Strings.attend,
-      Strings.qr,
-      Strings.liveClass,
-      Strings.schedule,
-      Strings.leave,
-      Strings.fees,
-      Strings.exam,
-      Strings.homeWork,
-      Strings.academic,
+      "Profile",
+      "Fees",
+      "Teacher",
+      "Subject",
+      "Class Schedule",
+      "Homework",
+      "Exam Schedule",
+      "Report Card",
+      "Leave Request",
+      "Hostels",
+      "Route",
+      "Book Request",
     ];
     List<Color> colors = [
       AppColors.skyBlue100,
@@ -59,7 +59,7 @@ class TeacherDescription extends StatelessWidget {
                     Strings.institute,
                     style: TextStyles.fontText20SemiBold(AppColors.blackColor),
                   ),
-                  SizedBox(height: 12,),
+                  SizedBox(height: 12),
                   GridView.builder(
                     shrinkWrap: true,
                     itemCount: colors.length,
@@ -70,7 +70,7 @@ class TeacherDescription extends StatelessWidget {
                     ),
                     itemBuilder: (context, index) {
                       return Container(
-                        height:50,
+                        height: 50,
                         width: 50,
                         decoration: BoxDecoration(
                           color: colors[index],
