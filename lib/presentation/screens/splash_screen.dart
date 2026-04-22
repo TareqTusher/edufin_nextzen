@@ -23,20 +23,20 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _checkAndNavigate() async {
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(seconds: 3));
 
     final prefs = await SharedPreferences.getInstance();
-    bool isLoggedIn = prefs.getBool("isLoggedIn") ?? false;
+    bool sessionAlive = prefs.getBool("sessionAlive") ?? false;
     String role = prefs.getString("role") ?? "";
 
     if (!mounted) return;
 
-    if (isLoggedIn && role == "student") {
+    if (sessionAlive && role == "student") {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => StudentDescription()),
       );
-    } else if (isLoggedIn && role == "teacher") {
+    } else if (sessionAlive && role == "teacher") {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => TeacherDescription()),
@@ -53,38 +53,32 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: AppColors.primary400,
+        backgroundColor: AppColors.backGroundColor,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CommonCircleAvatar(size: 80),
-                  SizedBox(height: 100),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: Strings.edu,
-                          style: TextStyles.fontText32SemiBold(
-                            AppColors.whiteColor,
-                          ),
-                        ),
-                        TextSpan(
-                          text: Strings.fin,
-                          style: TextStyles.fontText32SemiBold(
-                            AppColors.blackColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                children: [CommonCircleAvatar(size: 80,textColor: AppColors.whiteColor,)],
               ),
             ),
           ],
+        ),
+        bottomSheet: Container(
+          color: AppColors.backGroundColor,
+          padding: EdgeInsets.all(20),
+          child: SizedBox(
+            
+            width: double.infinity,
+            height: 50,
+            child: Image.asset(
+              
+              "assets/images/logo.png",
+              height: 100,
+              width: 100,
+            ),
+          ),
         ),
       ),
     );

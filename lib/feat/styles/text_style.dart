@@ -22,6 +22,15 @@ class TextStyles {
   return TextStyle(color: color,fontWeight: FontWeight.w400,fontSize: 16);
 
 }
+
+
+
+  static  TextStyle fontText16SemiBold (Color color){
+  return TextStyle(color: color,fontWeight: FontWeight.w600,fontSize: 16);
+
+}
+
+
   static  TextStyle fontText14Regular (Color color){
   return TextStyle(color: color,fontWeight: FontWeight.w400,fontSize: 14);
 

@@ -3,6 +3,7 @@ import 'package:edufin/feat/styles/colors.dart';
 import 'package:edufin/feat/styles/strings.dart';
 import 'package:edufin/feat/styles/text_style.dart';
 import 'package:edufin/presentation/screens/home_page.dart';
+import 'package:edufin/presentation/screens/portal_screen.dart';
 import 'package:flutter/material.dart';
 
 class StudentDescription extends StatelessWidget {
@@ -44,23 +45,68 @@ class StudentDescription extends StatelessWidget {
       AppColors.blue100,
       AppColors.skyBlue100,
     ];
+    List<IconData> icons = [
+      Icons.person,
+      Icons.account_balance_wallet,
+
+      Icons.person_outline,
+      Icons.menu_book,
+      Icons.calendar_month,
+      Icons.edit,
+      Icons.event_available,
+
+      Icons.description,
+      Icons.exit_to_app,
+
+      Icons.bed,
+      Icons.directions_bus,
+      Icons.menu_book,
+    ];
+    List<Color> iconColor = [
+      AppColors.deepSkyBlue,
+      AppColors.amber,
+
+      AppColors.green,
+
+      AppColors.blue,
+
+      AppColors.red,
+
+      AppColors.deepSkyBlue,
+
+      AppColors.deepSkyBlue,
+
+      AppColors.amber,
+      AppColors.red,
+      AppColors.amber,
+      AppColors.blue,
+      AppColors.deepSkyBlue,
+    ];
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.whiteColor,
+          leading: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PortalScreen()),
+              );
+            },
+            child: Icon(Icons.chevron_left,size: 24,),
+          ),
+        ),
         backgroundColor: AppColors.whiteColor,
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(16),
+            padding: EdgeInsets.only(left:  16,right: 16,bottom: 16),
             child: Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CommonCircleAvatar(size: 60),
-                  SizedBox(height: 12),
-                  Text(
-                    Strings.institute,
-                    style: TextStyles.fontText20SemiBold(AppColors.blackColor),
-                  ),
-                  SizedBox(height: 12),
+
+                  SizedBox(height: 16),
                   GridView.builder(
                     shrinkWrap: true,
                     itemCount: colors.length,
@@ -72,7 +118,10 @@ class StudentDescription extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
-                          Navigator.push(context,MaterialPageRoute(builder: (context)=>HomePage()));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePage()),
+                          );
                         },
                         child: Container(
                           height: 50,
@@ -81,7 +130,17 @@ class StudentDescription extends StatelessWidget {
                             color: colors[index],
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: Center(child: Text(buttonText[index])),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                icons[index],
+                                size: 34,
+                                color: iconColor[index],
+                              ),
+                              Center(child: Text(buttonText[index])),
+                            ],
+                          ),
                         ),
                       );
                     },
