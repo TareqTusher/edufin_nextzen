@@ -7,7 +7,7 @@ class CommonCircleAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      radius: 80,
+      radius: size,
       backgroundImage: AssetImage("assets/images/prottoy.jpg"),
     );
   }

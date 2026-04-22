@@ -2,6 +2,7 @@ import 'package:edufin/feat/commons_components/circle_avatar.dart';
 import 'package:edufin/feat/styles/colors.dart';
 import 'package:edufin/feat/styles/strings.dart';
 import 'package:edufin/feat/styles/text_style.dart';
+import 'package:edufin/presentation/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
 class StudentDescription extends StatelessWidget {
@@ -69,14 +70,19 @@ class StudentDescription extends StatelessWidget {
                       crossAxisCount: 3,
                     ),
                     itemBuilder: (context, index) {
-                      return Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          color: colors[index],
-                          borderRadius: BorderRadius.circular(12),
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(context,MaterialPageRoute(builder: (context)=>HomePage()));
+                        },
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            color: colors[index],
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Center(child: Text(buttonText[index])),
                         ),
-                        child: Center(child: Text(buttonText[index])),
                       );
                     },
                   ),
