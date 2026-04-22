@@ -76,10 +76,9 @@ class _PortalScreenState extends State<PortalScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CommonCircleAvatar(size: 60),
+              CommonCircleAvatar(size: 80),
               SizedBox(height: 40),
 
-              // ───── Student Portal Button ─────
               StudentPortalLogInButtonSection(),
 
               SizedBox(height: 24),
