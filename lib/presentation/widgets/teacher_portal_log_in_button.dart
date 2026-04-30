@@ -1,10 +1,12 @@
-import 'package:edufin/feat/commons_components/common_elevated_button.dart';
-import 'package:edufin/feat/styles/colors.dart';
-import 'package:edufin/feat/styles/strings.dart';
-import 'package:edufin/feat/styles/text_style.dart';
+import 'package:edufin/services/app_routes.dart';
+import 'package:edufin/services/auth.dart';
+import 'package:edufin/core/common_components/common_elevated_button.dart';
+import 'package:edufin/core/theme/colors.dart';
+import 'package:edufin/core/theme/strings.dart';
+import 'package:edufin/core/theme/text_style.dart';
 import 'package:edufin/presentation/screens/teacher_description.dart';
+import 'package:edufin/services/router.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TeacherPortalLogInButton extends StatelessWidget {
   const TeacherPortalLogInButton({super.key});
@@ -71,18 +73,10 @@ class TeacherPortalLogInButton extends StatelessWidget {
                       text: Strings.login,
                       onTap: () async {
                         if (key.currentState!.validate()) {
-                          final prefs = await SharedPreferences.getInstance();
-                          await prefs.setBool("isLoggedIn", true);
-                          await prefs.setBool("sessionAlive", true);
-                          await prefs.setString("role", "teacher");
+                          await SessionService.saveSession('teacher');
 
                           if (context.mounted) {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => TeacherDescription(),
-                              ),
-                            );
+                        router.push(AppRoutesPath.teacherDescription);
                           }
                         }
                       },
@@ -90,6 +84,7 @@ class TeacherPortalLogInButton extends StatelessWidget {
                       color: AppColors.whiteColor,
                       size: 18,
                     ),
+                    SizedBox(height: 20,)
                   ],
                 ),
               ),

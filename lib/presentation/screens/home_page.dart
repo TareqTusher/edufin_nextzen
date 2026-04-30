@@ -1,6 +1,6 @@
-import 'package:edufin/feat/commons_components/circle_avatar.dart';
-import 'package:edufin/feat/styles/colors.dart';
-import 'package:edufin/feat/styles/text_style.dart';
+import 'package:edufin/core/common_components/circle_avatar.dart';
+import 'package:edufin/core/theme/colors.dart';
+import 'package:edufin/core/theme/text_style.dart';
 import 'package:edufin/presentation/screens/portal_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
                 Container(
                   height: 100,
                   width: double.infinity,
-                  color:  AppColors.whiteColor,
+                  color: AppColors.whiteColor,
                 ),
 
                 Positioned(
@@ -31,10 +31,7 @@ class HomePage extends StatelessWidget {
                     height: 110,
                     decoration: const BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [
-                          Color(0xFF0D2A4A),
-                          Color(0xFF1C3D6F),
-                        ],
+                        colors: [Color(0xFF0D2A4A), Color(0xFF1C3D6F)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -54,9 +51,7 @@ class HomePage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => PortalScreen(),
-                        ),
+                        MaterialPageRoute(builder: (context) => PortalScreen()),
                       );
                     },
                     child: Container(
@@ -67,10 +62,10 @@ class HomePage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.08),
+                            color: Colors.black.withValues(alpha: 0.08),
                             blurRadius: 6,
                             offset: const Offset(0, 3),
-                          )
+                          ),
                         ],
                       ),
                       child: Row(
@@ -133,7 +128,7 @@ class HomePage extends StatelessWidget {
                             color: Colors.black.withOpacity(0.15),
                             blurRadius: 10,
                             offset: const Offset(0, 4),
-                          )
+                          ),
                         ],
                       ),
                       child: const CommonCircleAvatar(
@@ -146,17 +141,12 @@ class HomePage extends StatelessWidget {
               ],
             ),
 
-         
-
             const SizedBox(height: 86),
 
             /// Subtitle
             Text(
               "Home Page",
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey.shade600,
-              ),
+              style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
             ),
           ],
         ),

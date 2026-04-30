@@ -1,6 +1,6 @@
-import 'package:edufin/feat/styles/colors.dart';
-import 'package:edufin/feat/styles/strings.dart';
-import 'package:edufin/feat/styles/text_style.dart';
+import 'package:edufin/core/theme/colors.dart';
+import 'package:edufin/core/theme/strings.dart';
+import 'package:edufin/core/theme/text_style.dart';
 import 'package:flutter/material.dart';
 
 class CommonCircleAvatar extends StatelessWidget {

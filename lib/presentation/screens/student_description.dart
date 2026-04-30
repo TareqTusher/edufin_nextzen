@@ -1,9 +1,9 @@
-import 'package:edufin/feat/commons_components/circle_avatar.dart';
-import 'package:edufin/feat/styles/colors.dart';
-import 'package:edufin/feat/styles/strings.dart';
-import 'package:edufin/feat/styles/text_style.dart';
-import 'package:edufin/presentation/screens/home_page.dart';
-import 'package:edufin/presentation/screens/portal_screen.dart';
+import 'package:edufin/core/common_components/list_data.dart';
+import 'package:edufin/services/app_routes.dart';
+import 'package:edufin/services/auth.dart';
+import 'package:edufin/core/common_components/circle_avatar.dart';
+import 'package:edufin/core/theme/colors.dart';
+import 'package:edufin/services/router.dart';
 import 'package:flutter/material.dart';
 
 class StudentDescription extends StatelessWidget {
@@ -11,95 +11,33 @@ class StudentDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> buttonText = [
-      "Profile",
-      "Fees",
-      "Teacher",
-      "Subject",
-      "Class Schedule",
-      "Homework",
-      "Exam Schedule",
-      "Report Card",
-      "Leave Request",
-      "Hostels",
-      "Route",
-      "Book Request",
-    ];
-    List<Color> colors = [
-      AppColors.skyBlue100,
-      AppColors.amber100,
-
-      AppColors.green100,
-
-      AppColors.blue100,
-
-      AppColors.red100,
-
-      AppColors.skyBlue100,
-
-      AppColors.skyBlue100,
-
-      AppColors.amber100,
-      AppColors.red100,
-      AppColors.amber100,
-      AppColors.blue100,
-      AppColors.skyBlue100,
-    ];
-    List<IconData> icons = [
-      Icons.person,
-      Icons.account_balance_wallet,
-
-      Icons.person_outline,
-      Icons.menu_book,
-      Icons.calendar_month,
-      Icons.edit,
-      Icons.event_available,
-
-      Icons.description,
-      Icons.exit_to_app,
-
-      Icons.bed,
-      Icons.directions_bus,
-      Icons.menu_book,
-    ];
-    List<Color> iconColor = [
-      AppColors.deepSkyBlue,
-      AppColors.amber,
-
-      AppColors.green,
-
-      AppColors.blue,
-
-      AppColors.red,
-
-      AppColors.deepSkyBlue,
-
-      AppColors.deepSkyBlue,
-
-      AppColors.amber,
-      AppColors.red,
-      AppColors.amber,
-      AppColors.blue,
-      AppColors.deepSkyBlue,
-    ];
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.whiteColor,
           leading: InkWell(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => PortalScreen()),
-              );
+              router.push(AppRoutesPath.portalScreen);
             },
-            child: Icon(Icons.chevron_left,size: 24,),
+            child: Icon(Icons.chevron_left, size: 24),
           ),
+          actions: [
+            Padding(
+              padding: EdgeInsets.only(right: 12),
+              child: InkWell(
+                onTap: () async {
+                  await SessionService.logout();
+                  router.push(AppRoutesPath.splashScreen);
+                },
+                child: Icon(Icons.logout, size: 16),
+              ),
+            ),
+          ],
         ),
         backgroundColor: AppColors.whiteColor,
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.only(left:  16,right: 16,bottom: 16),
+            padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
             child: Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -109,7 +47,7 @@ class StudentDescription extends StatelessWidget {
                   SizedBox(height: 16),
                   GridView.builder(
                     shrinkWrap: true,
-                    itemCount: colors.length,
+                    itemCount: StudentListData.colors.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisSpacing: 12,
                       mainAxisSpacing: 12,
@@ -118,27 +56,26 @@ class StudentDescription extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => HomePage()),
-                          );
+                          router.push(AppRoutesPath.homePage);
                         },
                         child: Container(
                           height: 50,
                           width: 50,
                           decoration: BoxDecoration(
-                            color: colors[index],
+                            color: StudentListData.colors[index],
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
-                                icons[index],
+                                StudentListData.icons[index],
                                 size: 34,
-                                color: iconColor[index],
+                                color: StudentListData.iconColor[index],
                               ),
-                              Center(child: Text(buttonText[index])),
+                              Center(
+                                child: Text(StudentListData.buttonText[index]),
+                              ),
                             ],
                           ),
                         ),

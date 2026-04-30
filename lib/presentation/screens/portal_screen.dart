@@ -1,14 +1,11 @@
-import 'package:edufin/feat/commons_components/circle_avatar.dart';
-import 'package:edufin/feat/commons_components/common_elevated_button.dart';
-import 'package:edufin/feat/styles/colors.dart';
-import 'package:edufin/feat/styles/strings.dart';
-import 'package:edufin/feat/styles/text_style.dart';
-import 'package:edufin/presentation/screens/student_description.dart';
-import 'package:edufin/presentation/screens/teacher_description.dart';
+import 'package:edufin/services/app_routes.dart';
+import 'package:edufin/services/auth.dart';
+import 'package:edufin/core/common_components/circle_avatar.dart';
+import 'package:edufin/core/theme/colors.dart';
 import 'package:edufin/presentation/widgets/student_portal_log_in_button_section.dart';
 import 'package:edufin/presentation/widgets/teacher_portal_log_in_button.dart';
+import 'package:edufin/services/router.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class PortalScreen extends StatefulWidget {
   const PortalScreen({super.key});
@@ -18,56 +15,33 @@ class PortalScreen extends StatefulWidget {
 }
 
 class _PortalScreenState extends State<PortalScreen> {
-  bool _isLoading = true;
+  bool isLoading=true;
 
   @override
   void initState() {
     super.initState();
-    checkLogin();
+    _checkLogin();
   }
 
-  void checkLogin() async {
-    final prefs = await SharedPreferences.getInstance();
-    bool sessionAlive = prefs.getBool("sessionAlive") ?? false;
-    String role = prefs.getString("role") ?? "";
-
-    if (sessionAlive) {
-      if (role == "student") {
-        if (mounted) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => StudentDescription()),
-          );
-        }
-        return;
-      } else if (role == "teacher") {
-        if (mounted) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => TeacherDescription()),
-          );
-        }
-        return;
-      }
-    }
+  void _checkLogin() async {
+    print("role");
+    final role = await SessionService.getRole();
+print('Saved role: $role'); 
 
     if (mounted) {
-      setState(() {
-        _isLoading = false;
-      });
+      if (role == 'student') {
+       router.go(AppRoutesPath.studentDescription);
+      } else if (role == 'teacher') {
+           router.go(AppRoutesPath.teacherDescription);
+
+      } else {
+        setState(() => isLoading = false);
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_isLoading) {
-      return const Scaffold(
-        backgroundColor: AppColors.whiteColor,
-        body: SizedBox.shrink(),
-      );
-    }
-
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.whiteColor,
@@ -75,15 +49,11 @@ class _PortalScreenState extends State<PortalScreen> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               CommonCircleAvatar(size: 80),
               SizedBox(height: 40),
-
               StudentPortalLogInButtonSection(),
-
               SizedBox(height: 24),
-
-              // ───── Teacher Portal Button ─────
               TeacherPortalLogInButton(),
             ],
           ),

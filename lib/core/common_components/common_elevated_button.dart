@@ -1,5 +1,5 @@
-import 'package:edufin/feat/styles/colors.dart';
-import 'package:edufin/feat/styles/text_style.dart';
+import 'package:edufin/core/theme/colors.dart';
+import 'package:edufin/core/theme/text_style.dart';
 import 'package:flutter/material.dart';
 
 class CommonElevatedButton extends StatelessWidget {
@@ -22,14 +22,14 @@ class CommonElevatedButton extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           color:backgroundClr ,
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(16),
           border: Border.all(color: borderColor),
         ),
         child: Center(
           child: icons == null
               ? Text(
                   text,
-                  style: TextStyles.fontText14Medium(
+                  style: TextStyles.fontText16SemiBold(
                     color,
                   ).copyWith(fontSize:size ),
                 )

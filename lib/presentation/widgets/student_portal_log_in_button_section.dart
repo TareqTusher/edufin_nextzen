@@ -1,10 +1,10 @@
-import 'package:edufin/feat/commons_components/common_elevated_button.dart';
-import 'package:edufin/feat/styles/colors.dart';
-import 'package:edufin/feat/styles/strings.dart';
-import 'package:edufin/feat/styles/text_style.dart';
+import 'package:edufin/services/auth.dart';
+import 'package:edufin/core/common_components/common_elevated_button.dart';
+import 'package:edufin/core/theme/colors.dart';
+import 'package:edufin/core/theme/strings.dart';
+import 'package:edufin/core/theme/text_style.dart';
 import 'package:edufin/presentation/screens/student_description.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class StudentPortalLogInButtonSection extends StatelessWidget {
   const StudentPortalLogInButtonSection({super.key});
@@ -46,23 +46,20 @@ class StudentPortalLogInButtonSection extends StatelessWidget {
                         fillColor: AppColors.whiteColor,
                         border: OutlineInputBorder(
                           borderSide: BorderSide.none,
-                                                    borderRadius: BorderRadius.circular(16),
-
+                          borderRadius: BorderRadius.circular(16),
                         ),
                       ),
                       validator: (v) => v!.isEmpty ? "Enter Student Id" : null,
                     ),
                     SizedBox(height: 12),
                     TextFormField(
-                      
                       controller: passTEController,
                       obscureText: true,
                       decoration: InputDecoration(
-                        
                         hintText: "Password",
                         filled: true,
                         fillColor: AppColors.whiteColor,
-                         border: OutlineInputBorder(
+                        border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide.none,
                         ),
@@ -74,10 +71,7 @@ class StudentPortalLogInButtonSection extends StatelessWidget {
                       text: Strings.login,
                       onTap: () async {
                         if (key.currentState!.validate()) {
-                          final prefs = await SharedPreferences.getInstance();
-                          await prefs.setBool("isLoggedIn", true);
-                          await prefs.setBool("sessionAlive", true);
-                          await prefs.setString("role", "student");
+                          await SessionService.saveSession('student');
 
                           if (context.mounted) {
                             Navigator.pushReplacement(
